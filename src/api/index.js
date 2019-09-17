@@ -10,12 +10,16 @@ export const updateFeedById = (id, payload) => api.put(`/feed/${id}`, payload)
 export const deleteFeedById = id => api.delete(`/feed/${id}`)
 export const getFeedById = id => api.get(`/feed/${id}`)
 
+export const opmlUpload = payload => api.post(`/opmlupload`, payload)
+
+
 const apis = {
     addFeed,
     getAllFeeds,
     updateFeedById,
     deleteFeedById,
     getFeedById,
+    opmlUpload
 }
 
 export default apis
