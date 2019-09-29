@@ -1,23 +1,64 @@
 import React, { Component } from 'react'
+import TreeMenu from 'react-simple-tree-menu';
+
 import api from '../api'
 import rssParser from '../utils/rss-parser'
 
-class MoviesList extends Component {
+class FeedList extends Component {
     state = {
             formData: {},
-            feeds: [],
+            rootFeeds: [],
+            folders: [],
             isLoading: false,
+            treeData: {},
         }
+
+    createTree = (feeds, folders) => {
+        const treeData = []
+        if (feeds) {
+            feeds.forEach(feed => {
+                treeData.push({
+                    key: feed.slug,
+                    label: feed.title,
+                    id: feed._id
+                })
+            })
+        }
+        if (folders) {
+            folders.forEach(folder => {
+                const obj = {
+                    key: folder.slug,
+                    label: folder.title,
+                    id: folder._id,
+                    nodes: []
+                }
+                if (folder.feeds.length > 0) {
+                    const newArr = this.createTree(folder.feeds)
+                    newArr.forEach(item => obj.nodes.push(item))
+                }
+                if (folder.folders.length > 0) {
+                    const newArr = this.createTree(null, folder.folders)
+                    newArr.forEach(item => obj.nodes.push(item))
+                }
+                treeData.push(obj)
+            })
+        }
+
+        return treeData
+    }
 
     componentDidMount = async () => {
         this.setState({ isLoading: true })
 
         await api.getAllFeeds().then(feeds => {
             this.setState({
-                feeds: feeds.data.data,
+                rootFeeds: feeds.data.data.feeds,
+                folders: feeds.data.data.folders,
                 isLoading: false,
             })
         })
+
+        
     }
 
     handleChange = event => {
@@ -30,7 +71,9 @@ class MoviesList extends Component {
     }
 
     render() {
-        const { feeds, isLoading } = this.state
+        const { rootFeeds, folders, isLoading } = this.state
+
+        const treeData = this.createTree(rootFeeds, folders)
 
         return (
             <div>
@@ -38,10 +81,11 @@ class MoviesList extends Component {
                 <input value={this.state.newUrl} onChange={this.handleChange} type='text' />
                 <input type='submit' />
             </form>
-            {feeds.map((feed, i) => <div key={i}>{feed.title}</div>)}
+            {folders.map((folder, i) => <div key={i}>{folder.title}</div>)}
+            <TreeMenu data={treeData} />
             </div>
         )
     }
 }
 
-export default MoviesList
+export default FeedList
