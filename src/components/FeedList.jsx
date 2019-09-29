@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import TreeMenu from 'react-simple-tree-menu';
 
+import './FeedList.css'
 import api from '../api'
 import rssParser from '../utils/rss-parser'
+
 
 class FeedList extends Component {
     state = {
@@ -81,8 +83,9 @@ class FeedList extends Component {
                 <input value={this.state.newUrl} onChange={this.handleChange} type='text' />
                 <input type='submit' />
             </form>
-            {folders.map((folder, i) => <div key={i}>{folder.title}</div>)}
-            <TreeMenu data={treeData} />
+            <div className='tree-menu'>
+                <TreeMenu data={treeData} />
+            </div>
             </div>
         )
     }
