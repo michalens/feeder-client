@@ -17,15 +17,6 @@ class FeedList extends Component {
 
     createTree = (feeds, folders) => {
         const treeData = []
-        if (feeds) {
-            feeds.forEach(feed => {
-                treeData.push({
-                    key: feed.slug,
-                    label: feed.title,
-                    id: feed._id
-                })
-            })
-        }
         if (folders) {
             folders.forEach(folder => {
                 const obj = {
@@ -46,6 +37,16 @@ class FeedList extends Component {
             })
         }
 
+        if (feeds) {
+            feeds.forEach(feed => {
+                treeData.push({
+                    key: feed.slug,
+                    label: feed.title,
+                    id: feed._id
+                })
+            })
+        }
+        
         return treeData
     }
 
