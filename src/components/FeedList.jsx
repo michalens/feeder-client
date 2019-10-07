@@ -82,7 +82,16 @@ class FeedList extends Component {
                 <input type='submit' />
             </form>
             <div className='tree-menu' style={{ height: 1000 }}>
-                <SortableTree treeData={treeData} onChange={treeData => this.setState({ treeData })}/>
+                <SortableTree 
+                treeData={treeData} 
+                onChange={treeData => this.setState({ treeData })}
+                generateNodeProps={rowInfo => ({
+                    onClick: (e) => {
+                        this.props.getFeed(rowInfo)
+                        e.stopPropagation()
+                    }
+                })} 
+                />
             </div>
             </div>
         )
