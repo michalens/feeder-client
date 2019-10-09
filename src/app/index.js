@@ -2,7 +2,7 @@ import React from 'react'
 import FeedList from '../components/FeedList'
 import ItemsList from '../components/ItemsList'
 import ItemContent from '../components/ItemContent'
-import OpmlUpload from '../components/OpmlUpload'
+// import OpmlUpload from '../components/OpmlUpload'
 
 import api from '../api'
 

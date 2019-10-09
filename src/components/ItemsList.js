@@ -9,9 +9,7 @@ class ItemsList extends React.Component {
 
 	sortItems = (items) => {
 		const sortedArr = items.sort((a,b) => {
-			if (new Date(a.pubDate) < new Date(b.pubDate)) {
-				return true
-			}
+			return new Date(a.pubDate) < new Date(b.pubDate)
 		})
 		this.setState({items: sortedArr})
 	}

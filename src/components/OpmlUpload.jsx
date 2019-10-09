@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import api from '../api'
-import rssParser from '../utils/rss-parser'
 
 class OpmlUpload extends Component {
 

@@ -5,7 +5,6 @@ import MinimalTheme from 'react-sortable-tree-theme-minimal';
 
 import './FeedList.css'
 import api from '../api'
-import rssParser from '../utils/rss-parser'
 
 
 class FeedList extends Component {
@@ -78,7 +77,7 @@ class FeedList extends Component {
     }
 
     render() {
-        const { treeData, isLoading } = this.state
+        const { treeData } = this.state
 
         return (
             <div className='FeedList'>
