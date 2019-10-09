@@ -1,3 +1,7 @@
+.tree-menu {
+	height: 100%;
+}
+
 .tree-menu div {
 	outline: none;
 	box-sizing: border-box;

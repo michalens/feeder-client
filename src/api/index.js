@@ -11,6 +11,7 @@ export const deleteFeedById = id => api.delete(`/feed/${id}`)
 export const getFeedById = id => api.get(`/feed/${id}`)
 
 export const opmlUpload = payload => api.post(`/opmlupload`, payload)
+export const refreshFeeds = () => api.get(`/refresh`)
 
 
 const apis = {
@@ -19,7 +20,8 @@ const apis = {
     updateFeedById,
     deleteFeedById,
     getFeedById,
-    opmlUpload
+    opmlUpload,
+    refreshFeeds
 }
 
 export default apis

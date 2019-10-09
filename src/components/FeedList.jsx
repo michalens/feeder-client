@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import SortableTree from 'react-sortable-tree'
 import 'react-sortable-tree/style.css'
+import MinimalTheme from 'react-sortable-tree-theme-minimal';
 
 import './FeedList.css'
 import api from '../api'
@@ -72,16 +73,21 @@ class FeedList extends Component {
         await api.addFeed(this.state.formData)
     }
 
+    handleRefresh = () => {
+        api.refreshFeeds()
+    }
+
     render() {
         const { treeData, isLoading } = this.state
 
         return (
-            <div>
+            <div className='FeedList'>
             <form onSubmit={this.handleSubmit}>
                 <input value={this.state.newUrl} onChange={this.handleChange} type='text' />
                 <input type='submit' />
             </form>
-            <div className='tree-menu' style={{ height: 1000 }}>
+            <button onClick={this.handleRefresh}>Refresh</button>
+            <div className='tree-menu' >
                 <SortableTree 
                 treeData={treeData} 
                 onChange={treeData => this.setState({ treeData })}
@@ -91,6 +97,7 @@ class FeedList extends Component {
                         e.stopPropagation()
                     }
                 })} 
+                theme={MinimalTheme}
                 />
             </div>
             </div>
